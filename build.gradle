@@ -1,0 +1,24 @@
+plugins {
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '1.2.4'
+    id 'me.champeau.gradle.jmh' version '0.3.1'
+    id 'io.morethan.jmhreport' version '0.1.0'
+}
+
+repositories {
+    jcenter()
+}
+
+jmhReport {
+    jmhResultPath = project.file('build/reports/jmh/results.json')
+    jmhReportOutput = project.file('build/reports/jmh')
+}
+tasks.jmh.finalizedBy tasks.jmhReport
+
+jmh {
+    jmhVersion = '1.17.5'
+    iterations = 10
+    fork = 2
+    warmupIterations = 5
+    resultFormat = 'json'
+}
